@@ -25,3 +25,9 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext{
+    // App dependencies
+    supportversion = '26.1.0'
+
+}
