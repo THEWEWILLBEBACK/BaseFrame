@@ -33,4 +33,5 @@ dependencies {
 
     compile 'com.android.support:design:'+supportversion
     compile 'me.yokeyword:fragmentation:1.2.7'
+    compile 'me.yokeyword:fragmentation-swipeback:1.2.7'
 }
