@@ -1,9 +1,8 @@
 package com.optimusprime.xframe.utils;
 
 /**
- * Author:　Created by benjamin
+ * Author:　Created by Xiejq
  * DATE :  2017/2/15 14:07
- * 本项目中的log，上线时可以关闭log日志输出
  */
 
 import android.util.Log;
