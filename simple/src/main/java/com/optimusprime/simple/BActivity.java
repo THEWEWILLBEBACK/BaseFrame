@@ -1,18 +1,16 @@
 package com.optimusprime.simple;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import android.os.Bundle;
 
 import com.optimusprime.xframe.ui.XFrameActivity;
 
-public class MainActivity extends XFrameActivity {
+public class BActivity extends XFrameActivity {
 
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_main;
+        return R.layout.activity_b;
     }
 
     @Override
@@ -38,9 +36,5 @@ public class MainActivity extends XFrameActivity {
     @Override
     public void post(Runnable runnable) {
 
-    }
-
-    public void next(View view) {
-        goToActivity(new Intent(this, BActivity.class));
     }
 }

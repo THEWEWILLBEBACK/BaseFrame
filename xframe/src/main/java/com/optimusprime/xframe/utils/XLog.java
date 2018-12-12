@@ -63,7 +63,7 @@ public class XLog {
     }
 
     public static void _assert(boolean condition,String message){
-        if(isDebug == false)
+        if(!isDebug)
             return;
         if(condition){
             throw new AssertionError(message);
@@ -71,7 +71,7 @@ public class XLog {
     }
 
     public static void _assert(String message){
-        if(isDebug == false)
+        if(!isDebug)
             return;
         throw new AssertionError(message);
     }

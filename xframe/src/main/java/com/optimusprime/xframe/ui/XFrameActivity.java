@@ -37,16 +37,16 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator;
  * 注意： 继承的activity要在initView中设置布局。
  */
 
-public abstract class XFrameActivity extends AppCompatActivity implements ISupportActivity{
+public abstract class XFrameActivity extends AppCompatActivity implements ISupportActivity {
 
     private static final String TAG = XFrameActivity.class.getSimpleName();
     private Bitmap bg;
     //进行耗时操作是的弹框
+    private IWaitAnimDialog mWaitAnimDialog;
     protected LayoutInflater mInflater;
     protected View mContent;//根布局
     private RelativeLayout mLoadingErr;
     private TextView mTxtLoadErrTip;
-    private IWaitAnimDialog mWaitAnimDialog;
     final SupportActivityDelegate mDelegate = new SupportActivityDelegate(this);
     private ImageView mMPicLoadState;
 
@@ -54,16 +54,56 @@ public abstract class XFrameActivity extends AppCompatActivity implements ISuppo
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        preStartActivity(savedInstanceState);
-        initWaitingDialog();
         initInflate();
+        mContent = mInflater.inflate(getLayoutId(), null);
+        setContentView(getLayoutId());
+        if (isSetLoadingState()) {
+            initLoadingFailedView(getSateVector());
+        }
+        if (isSetPreActivityBg()) {
+            preSetBgActivity(savedInstanceState);//设置activity的背景色，前个页面传递的参数
+        }
+        initWaitingDialog();
         initView();
         initData();
         initListener();
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP){
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             StatusBarUtil.setColor(this, Color.WHITE);
         }
     }
+
+    /**
+     * 是否设置前个页面的背景（可重写控制）
+     *
+     * @return default is false
+     */
+    protected boolean isSetPreActivityBg() {
+        return false;
+    }
+
+    /**
+     * 是否设置网络结果展示布局id
+     *
+     * @return default is false
+     */
+    private boolean isSetLoadingState() {
+        return false;
+    }
+
+    /**
+     * 设置关联布局id
+     *
+     * @return 布局id
+     */
+    @LayoutRes
+    protected abstract int getLayoutId();
+
+    /**
+     * 设置网络结果展示布局id
+     *
+     * @return StateVector
+     */
+    protected abstract StateVector getSateVector();
 
 
     @Override
@@ -75,7 +115,7 @@ public abstract class XFrameActivity extends AppCompatActivity implements ISuppo
     /**
      * activity开启前的操作
      */
-    private void preStartActivity(@Nullable Bundle savedInstanceState) {
+    private void preSetBgActivity(@Nullable Bundle savedInstanceState) {
         mDelegate.onCreate(savedInstanceState);
         Intent intent = getIntent();
         if (intent.hasExtra(KeyConstant.BASE_DATA)) {
@@ -156,8 +196,7 @@ public abstract class XFrameActivity extends AppCompatActivity implements ISuppo
     protected abstract void initListener();
 
 
-
-    protected void showWaitingDialog(){
+    protected void showWaitingDialog() {
         if (mWaitAnimDialog != null && !mWaitAnimDialog.isShowing()) {
             if (mWaitAnimDialog.getDialogWindow() != null) {
                 mWaitAnimDialog.show();
@@ -175,9 +214,6 @@ public abstract class XFrameActivity extends AppCompatActivity implements ISuppo
             }
         }
     }
-
-
-
 
 
     @Override
@@ -375,6 +411,7 @@ public abstract class XFrameActivity extends AppCompatActivity implements ISuppo
 
     @Override
     public void onBackPressed() {
+        super.onBackPressed();
 //        if (XFrameCallBack.getInstance().mOnBackPressList != null) {
 //            if (XFrameCallBack.getInstance().mOnBackPressList.get(XFrameCallBack.getInstance().mOnBackPressList.size() - 1) instanceof BeautyMallBaseFragment) {
 //                if (((BeautyMallBaseFragment) MallCallBack.getInstance().mOnBackPress).getHost().equals(this)) {
@@ -517,13 +554,17 @@ public abstract class XFrameActivity extends AppCompatActivity implements ISuppo
     /**
      * 网络加载状态的载体类
      */
-    public static class StateVector{
-        private @LayoutRes int statePageLayoutId;
-        private @IdRes int containerId;
-        private @IdRes int stateTipsId;
-        private @IdRes int statePicId;
+    public static class StateVector {
+        private @LayoutRes
+        int statePageLayoutId;
+        private @IdRes
+        int containerId;
+        private @IdRes
+        int stateTipsId;
+        private @IdRes
+        int statePicId;
 
-        public StateVector(Builder builder){
+        public StateVector(Builder builder) {
             this.statePageLayoutId = builder.statePageId;
             this.containerId = builder.containerId;
             this.stateTipsId = builder.stateTipsId;
@@ -547,33 +588,37 @@ public abstract class XFrameActivity extends AppCompatActivity implements ISuppo
             return statePicId;
         }
 
-        private static class Builder{
-            private @LayoutRes int statePageId;
-            private @IdRes int containerId;
-            private @IdRes int stateTipsId;
-            private @IdRes int statePicId;
+        private static class Builder {
+            private @LayoutRes
+            int statePageId;
+            private @IdRes
+            int containerId;
+            private @IdRes
+            int stateTipsId;
+            private @IdRes
+            int statePicId;
 
-            public Builder statePage(@LayoutRes int statePageId){
+            public Builder statePage(@LayoutRes int statePageId) {
                 this.statePageId = statePageId;
                 return this;
             }
 
-            public Builder container(@IdRes int containerId){
+            public Builder container(@IdRes int containerId) {
                 this.containerId = containerId;
                 return this;
             }
 
-            public Builder stateTips(@IdRes int stateTipsId){
+            public Builder stateTips(@IdRes int stateTipsId) {
                 this.stateTipsId = stateTipsId;
                 return this;
             }
 
-            public Builder statePic(@IdRes int statePicId){
+            public Builder statePic(@IdRes int statePicId) {
                 this.statePicId = statePicId;
                 return this;
             }
 
-            public StateVector build(){
+            public StateVector build() {
                 return new StateVector(this);
             }
 

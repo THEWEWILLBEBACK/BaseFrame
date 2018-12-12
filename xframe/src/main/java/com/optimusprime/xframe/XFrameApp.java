@@ -20,5 +20,6 @@ public class XFrameApp extends Application {
 
     private void iniExceptionCatcher() {
         ExceptionCatcher exceptionCatcher = ExceptionCatcher.getInstance();
+        exceptionCatcher.init(this);
     }
 }
