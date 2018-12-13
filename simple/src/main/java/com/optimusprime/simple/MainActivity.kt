@@ -2,11 +2,19 @@ package com.optimusprime.simple
 
 import android.content.Intent
 import android.view.View
+import com.optimusprime.simple.base.BaseActivity
+import com.optimusprime.simple.persent.MainPresenter
+import com.optimusprime.simple.view.MainView
 
 import com.optimusprime.xframe.ui.XFrameActivity
 
-class MainActivity : XFrameActivity() {
+class MainActivity : BaseActivity<MainView, MainPresenter<MainView>>(), MainView {
 
+
+
+    override fun createPresenter(): MainPresenter<MainView> {
+        return MainPresenter()
+    }
 
     override fun getLayoutId(): Int {
         return R.layout.activity_main
@@ -36,4 +44,10 @@ class MainActivity : XFrameActivity() {
     fun next(view: View) {
         goToActivity(Intent(this, BActivity::class.java))
     }
+
+    override fun release() {
+
+    }
+
+
 }
