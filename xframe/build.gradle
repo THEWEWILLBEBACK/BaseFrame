@@ -12,7 +12,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -28,10 +28,11 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:'+supportversion
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-    compile 'com.android.support:design:'+supportversion
-    compile 'me.yokeyword:fragmentation:1.2.7'
-    compile 'me.yokeyword:fragmentation-swipeback:1.2.7'
+    implementation 'com.android.support:design:'+supportversion
+    api 'me.yokeyword:fragmentation:1.2.7'
+    api 'me.yokeyword:fragmentation-swipeback:1.2.7'
+    api 'com.android.support:multidex:1.0.3'
 }
