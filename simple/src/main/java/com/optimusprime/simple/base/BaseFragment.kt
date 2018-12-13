@@ -6,7 +6,7 @@ import com.optimusprime.xframe.ui.XFramFragment
 /**
  * Created by Xiejq on 2018/12/13.
  */
-abstract class BaseFragment<V, T : BasePresenter<V>> : XFramFragment() {
+abstract class BaseFragment<V, T : IPresenter<V>> : XFramFragment() {
     //presenter层引用
     var presenter: T? = null
 

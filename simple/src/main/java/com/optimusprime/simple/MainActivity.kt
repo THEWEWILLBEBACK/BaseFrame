@@ -1,19 +1,21 @@
 package com.optimusprime.simple
 
 import android.content.Intent
+import android.util.Log
 import android.view.View
 import com.optimusprime.simple.base.BaseActivity
-import com.optimusprime.simple.persent.MainPresenter
+import com.optimusprime.simple.persent.IMainPresenter
+import com.optimusprime.simple.persent.imp.MainPresenterImp
 import com.optimusprime.simple.view.MainView
 
 import com.optimusprime.xframe.ui.XFrameActivity
 
-class MainActivity : BaseActivity<MainView, MainPresenter<MainView>>(), MainView {
+class MainActivity : BaseActivity<MainView, IMainPresenter<MainView>>(), MainView {
+    val TAG: String = "MainActivity"
 
 
-
-    override fun createPresenter(): MainPresenter<MainView> {
-        return MainPresenter()
+    override fun createPresenter(): MainPresenterImp<MainView> {
+        return MainPresenterImp()
     }
 
     override fun getLayoutId(): Int {
@@ -25,7 +27,7 @@ class MainActivity : BaseActivity<MainView, MainPresenter<MainView>>(), MainView
     }
 
     override fun initView() {
-
+        presenter!!.thingOne()
     }
 
     override fun initData() {

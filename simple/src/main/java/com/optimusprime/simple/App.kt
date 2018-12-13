@@ -1,6 +1,7 @@
 package com.optimusprime.simple
 
 import android.util.Log
+import android.widget.Toast
 import com.optimusprime.xframe.XFrameApp
 
 /**
@@ -22,6 +23,10 @@ class App : XFrameApp() {
         super.onCreate()
         app = this
         Log.i(TAG, "onCreate:")
+    }
+
+    fun toast(str:String){
+        Toast.makeText(this,str,Toast.LENGTH_LONG).show()
     }
 
 

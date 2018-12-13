@@ -7,7 +7,7 @@ import java.lang.ref.WeakReference
  *
  * presenter 的base类
  */
-abstract class BasePresenter<T> {
+abstract class BasePresenter<T> :IPresenter<T>{
 
     //View层的实例引用，这里使用弱引用，防止内存泄漏问题
     var mViewRef: WeakReference<T>? = null
@@ -15,20 +15,20 @@ abstract class BasePresenter<T> {
     /**
      * attach to View
      */
-    fun attachView(view: T) {
+    override fun attachView(view: T) {
         mViewRef = WeakReference<T>(view)
     }
 
     /**
      * detach from view
      */
-    fun detachView() {
+    override fun detachView() {
         mViewRef!!.clear()
         release()
     }
 
-    /**
-     * 释放presenter持有的引用
-     */
-    abstract fun release()
+//    /**
+//     * 释放presenter持有的引用
+//     */
+//    abstract fun release()
 }

@@ -63,13 +63,13 @@ public abstract class XFrameActivity extends AppCompatActivity implements ISuppo
         if (isSetPreActivityBg()) {
             preSetBgActivity(savedInstanceState);//设置activity的背景色，前个页面传递的参数
         }
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            StatusBarUtil.setColor(this, Color.WHITE);
+        }
         initWaitingDialog();
         initView();
         initData();
         initListener();
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            StatusBarUtil.setColor(this, Color.WHITE);
-        }
     }
 
     /**

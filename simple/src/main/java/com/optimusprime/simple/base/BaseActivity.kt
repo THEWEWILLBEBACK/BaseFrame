@@ -6,15 +6,15 @@ import com.optimusprime.xframe.ui.XFrameActivity
 /**
  * Created by Xiejq on 2018/12/13.
  */
-abstract class BaseActivity<V, T : BasePresenter<V>> : XFrameActivity() {
+abstract class BaseActivity<V, T : IPresenter<V>> : XFrameActivity() {
     //presenter层引用
     var presenter: T? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         //将presenter层依附到view层
         presenter = createPresenter()
         presenter!!.attachView(view = this as V)
+        super.onCreate(savedInstanceState)
     }
 
     abstract fun createPresenter(): T
