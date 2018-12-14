@@ -1,7 +1,6 @@
 package com.optimusprime.simple
 
 import android.content.Intent
-import android.util.Log
 import android.view.View
 import com.optimusprime.simple.base.BaseActivity
 import com.optimusprime.simple.persent.IMainPresenter
@@ -23,11 +22,12 @@ class MainActivity : BaseActivity<MainView, IMainPresenter<MainView>>(), MainVie
     }
 
     override fun getSateVector(): XFrameActivity.StateVector? {
-        return null
+        return StateVector.Builder()
+                .build()
     }
 
     override fun initView() {
-        presenter!!.thingOne()
+        presenter.thingOne()
     }
 
     override fun initData() {

@@ -564,7 +564,7 @@ public abstract class XFrameActivity extends AppCompatActivity implements ISuppo
         private @IdRes
         int statePicId;
 
-        public StateVector(Builder builder) {
+        private StateVector(Builder builder) {
             this.statePageLayoutId = builder.statePageId;
             this.containerId = builder.containerId;
             this.stateTipsId = builder.stateTipsId;
@@ -588,7 +588,7 @@ public abstract class XFrameActivity extends AppCompatActivity implements ISuppo
             return statePicId;
         }
 
-        private static class Builder {
+        public static class Builder {
             private @LayoutRes
             int statePageId;
             private @IdRes
